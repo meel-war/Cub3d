@@ -4,6 +4,7 @@ OBJS	= $(SRC:.c=.o)
 CC		= cc
 LIBS 	= -lmlx -lXext -lX11 -lm
 FLAGS	= -Wall -Wextra -Werror -g
+LIBFT = libft/libft.a
 
 RESET		= \033[0m
 RED			= \033[1;31m
@@ -15,8 +16,8 @@ CYAN		= \033[1;36m
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@$(CC) $(FLAGS) $(OBJS) $(LIBS) -o $(NAME)
+$(NAME): $(LIBFT) $(OBJS)
+	@$(CC) $(FLAGS) $(OBJS) $(LIBFT) $(LIBS) -o $(NAME)
 	@echo -n "$(BLUE)Compiling: ["
 	@i=0; total=30; \
 	while [ $$i -le $$total ]; do \
@@ -37,16 +38,22 @@ $(NAME): $(OBJS)
 	@echo ""
 	@echo "$(BLUE)👾 by meel-war & pribolzi 👾$(RESET)"
 
+$(LIBFT):
+	@make all -C libft > /dev/null
+	@echo "\n$(GREEN)Libft compiled successfully! 📚\n"
+
 %.o: %.c
 	@$(CC) $(FLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
 	@echo "$(YELLOW)[Compiling] $< 💾]$(RESET)"
 
 clean:
 	@rm -rf $(OBJS)
+	@make clean -C libft > /dev/null
 	@echo "$(YELLOW)[🧹] Object files cleaned.$(RESET)"
 
 fclean: clean
 	@rm -rf $(NAME)
+	@make fclean -C libft > /dev/null
 	@echo "$(RED)[🔥] Executable and all cleaned.$(RESET)"
 
 re: fclean all
