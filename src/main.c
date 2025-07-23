@@ -1,4 +1,4 @@
-#include "../include/Cub3d.h"
+#include "../include/cub3d.h"
 
 int check_cub(char *file_name, char *cub)
 {
@@ -30,11 +30,16 @@ int check_dot(char *file_name)
     return (0);
 }
 
-void	check_format(char *file_name)
+void	check_format_cub(char *file_name)
 {
     if(check_dot(file_name))
     {
-        ft_putstr_fd("\033[1;31m🛑 -> Wrong map format, it must be .cub \033[0m\n", 2);
+        ft_putstr_fd("\033[1;31m🛑ERROR -> Wrong map format, it must be .cub \033[0m\n", 2);
+        exit(1);
+    }
+    if(open(file_name, O_RDONLY) < 0)
+    {
+        ft_putstr_fd("\033[1;31m🛑ERROR -> file doesn't exist\n\033[0m\n", 2);
         exit(1);
     }
 }
@@ -46,10 +51,26 @@ int main(int ac, char **av)
     (void)hub;
     if(ac != 2)
     {
-        ft_putstr_fd("\033[1;31m🛑 -> ./cub3d map/level.cub \033[0m\n", 2);
+        ft_putstr_fd("\033[1;31m🛑ERROR -> ./cub3d map/level.cub \033[0m\n", 2);
         return(1);
     }
-    check_format(av[1]);
+    check_format_cub(av[1]);
+    hub = malloc(sizeof(t_hub));
+    if(!hub)
+        return(0);
+    ft_memset(hub, 0, sizeof(t_hub));
+    hub->map = malloc(sizeof(t_map));
+    if (!hub->map)
+        exit(1); // ou gestion d'erreur
+
+    ft_memset(hub->map, 0, sizeof(t_map));
+
+    hub->map->color = malloc(sizeof(t_color));
+    if (!hub->map->color)
+        exit(1); // ou gestion d'erreur
+    ft_memset(hub->map->color, 0, sizeof(t_color));
+
+    map_init(av[1], hub);
 
     return(0);
 }

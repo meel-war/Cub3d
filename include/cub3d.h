@@ -6,6 +6,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include "../libft/libft.h"
 
 # define KEY_ESC 65307
 # define KEY_W 119
@@ -17,11 +18,34 @@
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
 
+typedef struct s_color
+{
+    int f_r;
+    int f_g;
+    int f_b;
+    int c_r;
+    int c_g;
+    int c_b;
+}       t_color;
+
+typedef struct s_map
+{
+    char **map;
+    char *N;
+    char *S;
+    char *W;
+    char *E;
+    t_color *color;
+}       t_map;
+
 typedef struct s_hub
 {
     void *mlx;
     void *win;
     void *img;
+    t_map *map;
 }              t_hub;
+
+void	map_init(char *file_name, t_hub *hub);
 
 #endif
