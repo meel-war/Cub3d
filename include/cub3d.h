@@ -46,6 +46,6 @@ typedef struct s_hub
     t_map *map;
 }              t_hub;
 
-void	map_init(char *file_name, t_hub *hub);
+void	map_features_init(char *file_name, t_hub *hub);
 
 #endif

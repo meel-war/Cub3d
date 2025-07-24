@@ -44,33 +44,54 @@ void	check_format_cub(char *file_name)
     }
 }
 
+void free_all(t_hub *hub)
+{
+    if(hub->map && hub)
+    {
+        if(hub->map->color)
+            free(hub->map->color);
+        free_tab(hub->map->map);
+        free(hub->map->E);
+        free(hub->map->N);
+        free(hub->map->S);
+        free(hub->map->W);
+        free(hub->map);
+    }
+    if(hub)
+        free(hub);
+    exit(0);
+}
+
+t_hub *allocate_to_default(void)
+{
+    t_hub *hub;
+    hub = malloc(sizeof(t_hub));
+    if(!hub)
+        free_all(hub);
+    ft_memset(hub, 0, sizeof(t_hub));
+    hub->map = malloc(sizeof(t_map));
+    if (!hub->map)
+        free_all(hub);
+    ft_memset(hub->map, 0, sizeof(t_map));
+    hub->map->color = malloc(sizeof(t_color));
+    if (!hub->map->color)
+        free_all(hub);
+    ft_memset(hub->map->color, 0, sizeof(t_color));
+    return(hub);
+}
+
 int main(int ac, char **av)
 {
     t_hub *hub;
 
-    (void)hub;
     if(ac != 2)
     {
         ft_putstr_fd("\033[1;31m🛑ERROR -> ./cub3d map/level.cub \033[0m\n", 2);
         return(1);
     }
     check_format_cub(av[1]);
-    hub = malloc(sizeof(t_hub));
-    if(!hub)
-        return(0);
-    ft_memset(hub, 0, sizeof(t_hub));
-    hub->map = malloc(sizeof(t_map));
-    if (!hub->map)
-        exit(1); // ou gestion d'erreur
-
-    ft_memset(hub->map, 0, sizeof(t_map));
-
-    hub->map->color = malloc(sizeof(t_color));
-    if (!hub->map->color)
-        exit(1); // ou gestion d'erreur
-    ft_memset(hub->map->color, 0, sizeof(t_color));
-
-    map_init(av[1], hub);
-
+    hub = allocate_to_default();
+    map_features_init(av[1], hub);
+    free_all(hub);
     return(0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_tab.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pribolzi <pribolzi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: meel-war <meel-war@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:39:34 by pribolzi          #+#    #+#             */
-/*   Updated: 2025/05/28 14:49:19 by pribolzi         ###   ########.fr       */
+/*   Updated: 2025/07/23 20:20:51 by meel-war         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	free_tab(char **str)
 {
 	int	i;
 
+	if(!str)
+		return ;
 	i = 0;
 	while (str[i])
 	{
