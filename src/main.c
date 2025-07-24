@@ -91,7 +91,14 @@ int main(int ac, char **av)
     }
     check_format_cub(av[1]);
     hub = allocate_to_default();
-    map_features_init(av[1], hub);
+	hub->map->height = get_height(av[1], hub);
+	if (!(hub->mlx = mlx_init()))
+		return (1);
+	if (!(hub->win = mlx_new_window(hub->mlx, 1920, 1080, "cub3d")))
+		return (1);
+	minimap(hub, av[1]);
+    //map_features_init(av[1], hub);
+	mlx_loop(hub->mlx);
     free_all(hub);
     return(0);
 }

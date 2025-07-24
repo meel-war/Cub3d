@@ -35,6 +35,7 @@ typedef struct s_map
     char *S;
     char *W;
     char *E;
+	int height;
     t_color *color;
 }       t_map;
 
@@ -47,5 +48,7 @@ typedef struct s_hub
 }              t_hub;
 
 void	map_features_init(char *file_name, t_hub *hub);
+int 	get_height(char *file_name, t_hub *hub);
+void 	minimap(t_hub *hub, char *file);
 
 #endif
