@@ -35,6 +35,8 @@ typedef struct s_map
     char *S;
     char *W;
     char *E;
+	int	p_x;
+	int p_y;
 	int height;
     t_color *color;
 }       t_map;

@@ -6,7 +6,7 @@
 /*   By: pribolzi <pribolzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 16:36:11 by meel-war          #+#    #+#             */
-/*   Updated: 2025/07/24 16:26:25 by pribolzi         ###   ########.fr       */
+/*   Updated: 2025/07/28 15:40:30 by pribolzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int get_height(char *file_name, t_hub *hub)
 	{
 		if(line[i])
 			i++;
+		free(line);
 	}
 	close(fd_file);
 	return (i);
