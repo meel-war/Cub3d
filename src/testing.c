@@ -6,7 +6,7 @@
 /*   By: pribolzi <pribolzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 15:45:52 by pribolzi          #+#    #+#             */
-/*   Updated: 2025/07/28 17:06:45 by pribolzi         ###   ########.fr       */
+/*   Updated: 2025/07/29 14:38:57 by pribolzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int handle_key(int keycode, t_hub *hub)
 {
 	if (keycode == KEY_ESC)
 		exit(0);
+	(void)hub;
 	// if (keycode == KEY_A || keycode == KEY_LEFT)
 	// 	movement_left(hub);
 	// else if (keycode == KEY_W || keycode == KEY_UP)
