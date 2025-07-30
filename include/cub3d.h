@@ -17,6 +17,7 @@
 # define KEY_LEFT 65361
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
+# define MV_SPEED 0.1f
 
 typedef struct s_color
 {
@@ -35,11 +36,15 @@ typedef struct s_map
     char *S;
     char *W;
     char *E;
-	int	p_x;
-	int p_y;
 	int height;
     t_color *color;
 }       t_map;
+
+typedef struct s_hero
+{
+	float	p_x;
+	float	p_y;
+}				t_hero;
 
 typedef struct s_hub
 {
@@ -47,12 +52,14 @@ typedef struct s_hub
     void *win;
     void *img;
     t_map *map;
+	t_hero *hero;
 }              t_hub;
 
 void	map_features_init(char *file_name, t_hub *hub);
 void 	get_height(char *file_name, t_hub *hub);
-void init_minimap(t_hub *hub);
-void stock_map(char *file_name, t_hub *hub);
-void minimap(t_hub *hub);
+void 	print_minimap(t_hub *hub);
+void 	stock_map(char *file_name, t_hub *hub);
+void 	minimap(t_hub *hub);
+void 	free_all(t_hub *hub);
 
 #endif

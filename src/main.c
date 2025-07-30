@@ -46,7 +46,7 @@ void	check_format_cub(char *file_name)
 
 void free_all(t_hub *hub)
 {
-    if(hub->map && hub)
+    if(hub && hub->map)
     {
         if(hub->map->color)
             free(hub->map->color);
@@ -57,6 +57,8 @@ void free_all(t_hub *hub)
         free(hub->map->W);
         free(hub->map);
     }
+	if (hub && hub->hero)
+		free(hub->hero);
     if(hub)
         free(hub);
     exit(0);
@@ -77,6 +79,10 @@ t_hub *allocate_to_default(void)
     if (!hub->map->color)
         free_all(hub);
     ft_memset(hub->map->color, 0, sizeof(t_color));
+	hub->hero = malloc(sizeof(t_hero));
+	if (!hub->hero)
+		free_all(hub);
+	ft_memset(hub->hero, 0, sizeof(t_hero));
     return(hub);
 }
 
