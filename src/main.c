@@ -96,7 +96,7 @@ int main(int ac, char **av)
 	if (!(hub->win = mlx_new_window(hub->mlx, 1920, 1080, "cub3d")))
 		return (1);
     map_features_init(av[1], hub);
-    init_minimap(hub);
+    minimap(hub);
 	mlx_loop(hub->mlx);
     free_all(hub);
     return(0);

@@ -6,11 +6,35 @@
 /*   By: pribolzi <pribolzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 15:45:52 by pribolzi          #+#    #+#             */
-/*   Updated: 2025/07/30 14:56:43 by pribolzi         ###   ########.fr       */
+/*   Updated: 2025/07/30 15:02:02 by pribolzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+void put_edge(t_hub *hub, int y, int x)
+{
+	int i = 0;
+	int j = 0;
+	
+	while (i < 64)
+	{
+		mlx_pixel_put(hub->mlx, hub->win, x + i, y, 0x000000);
+		i++;
+	}
+	while (j < 64)
+	{
+		mlx_pixel_put(hub->mlx, hub->win, x, y + j, 0x000000);
+		j++;
+	}
+}
+
+void put_character(t_hub *hub, int y, int x)
+{
+	hub->map->p_x = x / 64;
+	hub->map->p_y = y / 64;
+	mlx_pixel_put(hub->mlx, hub->win, x + 32, y + 32, 0x000000);
+}
 
 void put_pixel(t_hub *hub, int y, int x, int type)
 {
@@ -26,6 +50,9 @@ void put_pixel(t_hub *hub, int y, int x, int type)
 			while (i < 32)
 			{
 				mlx_pixel_put(hub->mlx, hub->win, x + i, y + j, 0xFF0000);
+				i++;
+			}
+			j++;
 		}
 	}
 	else
@@ -36,6 +63,9 @@ void put_pixel(t_hub *hub, int y, int x, int type)
 			while (i < 32)
 			{
 				mlx_pixel_put(hub->mlx, hub->win, x + i, y + j, 0xFF00);
+				i++;
+			}
+			j++;
 		}
 	}
 	if (hub->map->map[y / 64][x / 64] == 'P')
@@ -56,7 +86,7 @@ void init_minimap(t_hub *hub)
 		{
 			if (hub->map->map[y][x] == '1')
 				put_pixel(hub, y * 32, x * 32, 1);
-			if (hub->map->map[y][x] == '0')
+			if (hub->map->map[y][x] == '0' || hub->map->map[y][x] == 'P')
 				put_pixel(hub, y * 32, x * 32, 0);
 			x++;
 		}
@@ -69,20 +99,11 @@ int handle_key(int keycode, t_hub *hub)
 	if (keycode == KEY_ESC)
 		exit(0);
 	(void)hub;
-	// if (keycode == KEY_A || keycode == KEY_LEFT)
-	// 	movement_left(hub);
-	// else if (keycode == KEY_W || keycode == KEY_UP)
-	// 	movement_up(hub);
-	// else if (keycode == KEY_D || keycode == KEY_RIGHT)
-	// 	movement_right(hub);
-	// else if (keycode == KEY_S || keycode == KEY_DOWN)
-	// 	movement_down(hub);
 	return (0);
 }
 
-void minimap(t_hub *hub, char *file)
+void minimap(t_hub *hub)
 {
-	stock_map(hub, file);
 	init_minimap(hub);
 	mlx_key_hook(hub->win, handle_key, hub);
 }
