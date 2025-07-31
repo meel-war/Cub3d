@@ -7,6 +7,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "../libft/libft.h"
+# include <stdbool.h>
+# include <sys/time.h>
 
 # define KEY_ESC 65307
 # define KEY_W 119
@@ -18,6 +20,7 @@
 # define KEY_DOWN 65364
 # define KEY_RIGHT 65363
 # define MV_SPEED 0.1f
+# define FRAMERATE 15000
 
 typedef struct s_color
 {
@@ -44,6 +47,11 @@ typedef struct s_hero
 {
 	float	p_x;
 	float	p_y;
+	int		keys[65365];
+	bool	up;
+	bool	down;
+	bool	left;
+	bool	right;
 }				t_hero;
 
 typedef struct s_hub
@@ -59,7 +67,10 @@ void	map_features_init(char *file_name, t_hub *hub);
 void 	get_height(char *file_name, t_hub *hub);
 void 	print_minimap(t_hub *hub);
 void 	stock_map(char *file_name, t_hub *hub);
-void 	minimap(t_hub *hub);
+void 	print_minimap(t_hub *hub);
 void 	free_all(t_hub *hub);
+int 	handle_movement(void *param);
+int 	key_press(int keycode, t_hub *hub);
+int 	key_release(int keycode, t_hub *hub);
 
 #endif

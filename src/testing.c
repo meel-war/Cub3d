@@ -6,7 +6,7 @@
 /*   By: pribolzi <pribolzi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 15:45:52 by pribolzi          #+#    #+#             */
-/*   Updated: 2025/07/30 16:21:10 by pribolzi         ###   ########.fr       */
+/*   Updated: 2025/07/31 20:00:44 by pribolzi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,26 +127,45 @@ int check_collision(t_hub *hub, float f_x, float f_y)
 	return (0);
 }
 
-int handle_key(int keycode, t_hub *hub)
+int key_press(int keycode, t_hub *hub)
 {
 	if (keycode == KEY_ESC)
 		free_all(hub);
-	if (keycode == KEY_A || keycode == KEY_LEFT)
+	hub->hero->keys[keycode] = 1;
+	return (0);
+}
+
+int key_release(int keycode, t_hub *hub)
+{
+	hub->hero->keys[keycode] = 0;
+	return (0);
+}
+
+int handle_movement(void *param)
+{
+	t_hub *hub;
+	static int time = 0;
+
+	if (++time < FRAMERATE)
+		return (0);
+	time = 0;
+	hub = param;
+	if (hub->hero->keys[KEY_LEFT] == true || hub->hero->keys[KEY_A] == true)
 	{
 		if (!check_collision(hub, hub->hero->p_x - MV_SPEED, hub->hero->p_y))
 			hub->hero->p_x -= MV_SPEED;
 	}
-	else if (keycode == KEY_W || keycode == KEY_UP)
+	if (hub->hero->keys[KEY_UP] == true || hub->hero->keys[KEY_W] == true)
 	{
 		if (!check_collision(hub, hub->hero->p_x, hub->hero->p_y - MV_SPEED))
 			hub->hero->p_y -= MV_SPEED;
 	}
-	else if (keycode == KEY_D || keycode == KEY_RIGHT)
+	if (hub->hero->keys[KEY_RIGHT] == true || hub->hero->keys[KEY_D] == true)
 	{
 		if (!check_collision(hub, hub->hero->p_x + MV_SPEED, hub->hero->p_y))
 			hub->hero->p_x += MV_SPEED;
 	}
-	else if (keycode == KEY_S || keycode == KEY_DOWN)
+	if (hub->hero->keys[KEY_DOWN] == true || hub->hero->keys[KEY_S] == true)
 	{
 		if (!check_collision(hub, hub->hero->p_x, hub->hero->p_y + MV_SPEED))
 			hub->hero->p_y += MV_SPEED;
@@ -154,10 +173,4 @@ int handle_key(int keycode, t_hub *hub)
 	update_minimap(hub);
 	print_character(hub);
 	return (0);
-}
-
-void minimap(t_hub *hub)
-{
-	print_minimap(hub);
-	mlx_key_hook(hub->win, handle_key, hub);
 }
