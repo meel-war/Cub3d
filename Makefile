@@ -1,5 +1,5 @@
 NAME	= cub3d
-SRC		= src/main.c src/map_init.c src/testing.c
+SRC		= src/main.c src/map_init.c src/testing.c src/parsing.c
 OBJS	= $(SRC:.c=.o)
 CC		= cc
 LIBS 	= -lmlx -lXext -lX11 -lm

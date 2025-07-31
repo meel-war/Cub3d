@@ -54,5 +54,7 @@ void 	get_height(char *file_name, t_hub *hub);
 void init_minimap(t_hub *hub);
 void stock_map(char *file_name, t_hub *hub);
 void minimap(t_hub *hub);
+void parse_map(t_hub *hub);
+void free_all(t_hub *hub);
 
 #endif

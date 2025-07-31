@@ -97,6 +97,7 @@ int main(int ac, char **av)
 		return (1);
     map_features_init(av[1], hub);
     minimap(hub);
+    parse_map(hub);
 	mlx_loop(hub->mlx);
     free_all(hub);
     return(0);
